@@ -13,7 +13,7 @@ public class Medicines extends Medicine
             builder.append(medicineList.get(i).getName()).append(" ").append(medicineList.get(i).getDes());
             if (i<medicineList.size())
             {
-                result+="\r\n";
+                result+=",\r\n";
                 builder.append("\r\n");
             }
         }

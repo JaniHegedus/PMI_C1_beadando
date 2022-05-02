@@ -1,6 +1,6 @@
+
 public class Reciept extends Medicines
 {
-
     public void addMed(String name, String des)
     {
         boolean contains = false;
@@ -14,21 +14,6 @@ public class Reciept extends Medicines
         if(!contains)
         {
             super.medicineList.add(new Medicine(name,des));
-        }
-    }
-    public void addGoods(Medicine name)
-    {
-        boolean contains = false;
-        for(Medicine medicine:medicineList)
-        {
-            if(medicine.equals(name))
-            {
-                contains=true;
-            }
-        }
-        if(!contains)
-        {
-            super.medicineList.add(name);
         }
     }
     public void updateDes(String name, String des)

@@ -1,25 +1,34 @@
-import javax.swing.*;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-public class MedicineGui
+import javax.swing.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.awt.*;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+
+public class MedicineGui extends JFrame
 {
-    public static void main(String[] args)
+    public MedicineGui() {
+    }
+    public MedicineGui(Reciept reciept)
     {
-        Reciept reciept = new Reciept();
-        // Create frame with title Registration Demo
+
+         // Create frame with title Registration Demo
         JFrame frame= new JFrame();
         frame.setTitle("Medicine Database");
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Panel to define the layout. We are using GridBagLayout
         JPanel mainPanel = new JPanel();
+        JLabel headingLabel = new JLabel("");
+        mainPanel.add(headingLabel);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        JPanel headingPanel = new JPanel();
-        JLabel headingLabel = new JLabel("");
-        headingPanel.add(headingLabel);
+
 
         // Panel to define the layout. We are using GridBagLayout
         JPanel panel = new JPanel(new GridBagLayout());
@@ -33,54 +42,58 @@ public class MedicineGui
         constr.gridy=0;
 
         // Declare the required Labels
-        JLabel NameLabel = new JLabel("Enter the name :");
-        JLabel pwdLabel = new JLabel("Enter the description :");
+        JLabel NameLabel = new JLabel("Add new medicine :");
+        JLabel pwdLabel = new JLabel("Modify existing medicine :");
+        JLabel list = new JLabel("List all medicine :");
 
         // Declare Text fields
-        JTextField NameTxt = new JTextField(20);
-        JTextField pwdTxt = new JTextField(20);
+        JButton button = new JButton("Add New");
+        JButton button0 = new JButton("Modify");
+        JButton button1 = new JButton("List all");
 
         panel.add(NameLabel, constr);
         constr.gridx=1;
-        panel.add(NameTxt, constr);
+        panel.add(button, constr);
         constr.gridx=0; constr.gridy=1;
 
         panel.add(pwdLabel, constr);
         constr.gridx=1;
-        panel.add(pwdTxt, constr);
+        panel.add(button0, constr);
+        constr.gridx=0; constr.gridy=2;
+
+        panel.add(list, constr);
+        constr.gridx=1;
+        panel.add(button1, constr);
         constr.gridx=0; constr.gridy=2;
 
         constr.gridwidth = 2;
         constr.anchor = GridBagConstraints.CENTER;
 
-        // Button with text "Register"
-        JButton button = new JButton("Done!");
         // add a listener to button
-        button.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-
-                reciept.addMed(NameTxt.getText(),pwdTxt.getText());
-                NameTxt.setText("");
-                pwdTxt.setText("");
-            }
+        button.addActionListener(e -> {
+            frame.setVisible(false);
+            new AddMed(reciept);
         });
-
+        button0.addActionListener(e -> {
+            frame.setVisible(false);
+            new ModifyMed(reciept);
+        });
+        button1.addActionListener(e ->{
+            frame.setVisible(false);
+            new ListAll(reciept);
+        });
         // Add label and button to panel
-        panel.add(button, constr);
 
-        mainPanel.add(headingPanel);
         mainPanel.add(panel);
 
         // Add panel to frame
         frame.add(mainPanel);
         frame.pack();
-        frame.setSize(400, 400);
+        Xml newxml =  new Xml();
+        frame.setSize(newxml.getdata()[0], newxml.getdata()[1]);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-
     }
+
 }
