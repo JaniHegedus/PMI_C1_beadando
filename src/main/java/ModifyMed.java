@@ -1,14 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-public class ModifyMed extends MedicineGui {
-    ModifyMed(Reciept reciept) {
+public class ModifyMed extends MainGui {
+    ModifyMed(Medicines medicines) {
         // Create frame with title Registration Demo
         JFrame frame4 = new JFrame();
-        frame4.setTitle("Medicine Database");
+        frame4.setTitle("Med Database");
 
         // Panel to define the layout. We are using GridBagLayout
         JPanel mainPanel = new JPanel();
@@ -30,8 +27,8 @@ public class ModifyMed extends MedicineGui {
         constr.gridy = 0;
 
         // Declare the required Labels
-        JLabel NameLabel = new JLabel("Remove a medicine:");
-        JLabel pwdLabel = new JLabel("Modify a medicine's description :");
+        JLabel NameLabel = new JLabel("Remove a medicines:");
+        JLabel pwdLabel = new JLabel("Modify a medicines's description :");
 
         // Declare Text fields
         JButton button2 = new JButton("Remove");
@@ -56,11 +53,11 @@ public class ModifyMed extends MedicineGui {
         // add a listener to button
         button2.addActionListener(e -> {
             frame4.setVisible(false);
-            new RemoveMed(reciept); // Main Form to show after the Login Form..
+            new RemoveMed(medicines); // Main Form to show after the Login Form..
         });
         button3.addActionListener(e -> {
             frame4.setVisible(false);
-            new UpdateMed(reciept); // Main Form to show after the Login Form..
+            new UpdateMed(medicines); // Main Form to show after the Login Form..
         });
         // Add label and button to panel
 

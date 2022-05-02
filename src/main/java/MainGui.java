@@ -1,26 +1,17 @@
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import javax.swing.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 
-public class MedicineGui extends JFrame
+public class MainGui extends JFrame
 {
-    public MedicineGui() {
+    public MainGui() {
     }
-    public MedicineGui(Reciept reciept)
+    public MainGui(Medicines medicines)
     {
 
          // Create frame with title Registration Demo
         JFrame frame= new JFrame();
-        frame.setTitle("Medicine Database");
+        frame.setTitle("Med Database");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Panel to define the layout. We are using GridBagLayout
         JPanel mainPanel = new JPanel();
@@ -42,9 +33,9 @@ public class MedicineGui extends JFrame
         constr.gridy=0;
 
         // Declare the required Labels
-        JLabel NameLabel = new JLabel("Add new medicine :");
-        JLabel pwdLabel = new JLabel("Modify existing medicine :");
-        JLabel list = new JLabel("List all medicine :");
+        JLabel NameLabel = new JLabel("Add new medicines :");
+        JLabel pwdLabel = new JLabel("Modify existing medicines :");
+        JLabel list = new JLabel("List all medicines :");
 
         // Declare Text fields
         JButton button = new JButton("Add New");
@@ -72,15 +63,15 @@ public class MedicineGui extends JFrame
         // add a listener to button
         button.addActionListener(e -> {
             frame.setVisible(false);
-            new AddMed(reciept);
+            new AddMed(medicines);
         });
         button0.addActionListener(e -> {
             frame.setVisible(false);
-            new ModifyMed(reciept);
+            new ModifyMed(medicines);
         });
         button1.addActionListener(e ->{
             frame.setVisible(false);
-            new ListAll(reciept);
+            new ListAll(medicines);
         });
         // Add label and button to panel
 

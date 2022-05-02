@@ -1,14 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class AddMed extends MedicineGui
+public class AddMed extends MainGui
 {
-    public AddMed(Reciept reciept)
+    public AddMed(Medicines medicines)
     {
         // Create frame with title Registration Demo
         JFrame frame1= new JFrame();
-        frame1.setTitle("Adding New Medicine");
+        frame1.setTitle("Adding New Med");
 
         // Panel to define the layout. We are using GridBagLayout
         JPanel mainPanel = new JPanel();
@@ -54,9 +53,9 @@ public class AddMed extends MedicineGui
         JButton button6 = new JButton("Done!");
         // add a listener to button
         button6.addActionListener(e -> {
-            reciept.addMed(NameTxt.getText(),pwdTxt.getText());
+            medicines.addMed(NameTxt.getText(),pwdTxt.getText());
             frame1.setVisible(false);
-            new Done(reciept);
+            new Done(medicines);
         });
 
         // Add label and button to panel

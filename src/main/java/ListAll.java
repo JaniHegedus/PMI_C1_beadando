@@ -3,13 +3,13 @@ import java.awt.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class ListAll extends MedicineGui {
-    public ListAll(Reciept reciept)
+public class ListAll extends MainGui {
+    public ListAll(Medicines medicines)
     {
-        System.out.println(reciept.createReceipt());
+        System.out.println(medicines.ListMedicines());
         JFrame frame2 = new JFrame();
 
-        frame2.setTitle("All Medicine with Description:");
+        frame2.setTitle("All Med with Description:");
 
         JPanel headingPanel = new JPanel();
         JPanel mainPanel = new JPanel();
@@ -24,7 +24,7 @@ public class ListAll extends MedicineGui {
         constr.insets = new Insets(5, 5, 5, 5);
         constr.anchor = GridBagConstraints.WEST;
 
-        JLabel NameLabel = new JLabel("Added Medicines:");
+        JLabel NameLabel = new JLabel("Added Medicine:");
         headingPanel.add(NameLabel);
 
 
@@ -34,7 +34,7 @@ public class ListAll extends MedicineGui {
 
         // Declare the required Labels
 
-        JTextArea Content = new JTextArea(reciept.createReceipt());
+        JTextArea Content = new JTextArea(medicines.ListMedicines());
         JButton button7 = new JButton("Save to XML!");
         JButton button8 = new JButton("Ok!");
 
@@ -48,13 +48,13 @@ public class ListAll extends MedicineGui {
 
         // add a listener to button
         button7.addActionListener(e -> {
-            saveToXML(reciept);
+            saveToXML(medicines);
             frame2.setVisible(false);
-            new Done(reciept); // Main Form to show after the Login Form..
+            new Done(medicines); // Main Form to show after the Login Form..
         });
         button8.addActionListener(e -> {
             frame2.setVisible(false);
-            new MedicineGui(reciept); // Main Form to show after the Login Form..
+            new MainGui(medicines); // Main Form to show after the Login Form..
         });
 
         // Add label and button to panel
@@ -70,8 +70,8 @@ public class ListAll extends MedicineGui {
         frame2.setVisible(true);
 
     }
-    public void saveToXML(Reciept reciept)
+    public void saveToXML(Medicines medicines)
     {
-        Xml.saveMedToXml(reciept.medicineList,"src/main/resources/medicine.xml");
+        Xml.saveMedToXml(medicines.medList,"src/main/resources/medicines.xml");
     }
 }

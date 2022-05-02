@@ -1,27 +1,23 @@
-public class Medicine
+import java.util.ArrayList;
+
+public class Medicine extends Med
 {
-    private String name;
-    private String des;
-
-    public Medicine() {
+    protected ArrayList<Med> medList =new ArrayList<>();
+    public String ListMedicines()
+    {
+        String result = "";
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < medList.size(); i++)
+        {
+            result+= medList.get(i).getName()+" "+ medList.get(i).getDes();
+            builder.append(medList.get(i).getName()).append(" ").append(medList.get(i).getDes());
+            if (i< medList.size())
+            {
+                result+=",\r\n";
+                builder.append("\r\n");
+            }
+        }
+        //return result;
+        return builder.toString();
     }
-
-    public Medicine(String name, String des) {
-        this.name = name;
-        this.des = des;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDes() {
-        return des;
-    }
-
-    public void setDes(String des) {this.des = des;}
 }

@@ -13,18 +13,18 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-public class Xml extends MedicineGui
+public class Xml extends MainGui
 {
-    public static void saveMedToXml(ArrayList<Medicine> users, String filepath)
+    public static void saveMedToXml(ArrayList<Med> users, String filepath)
     {
         try {
             Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            Element rootElement = document.createElement("Medicines");
+            Element rootElement = document.createElement("Medicine");
             document.appendChild(rootElement);
 
-            for (Medicine user : users)
+            for (Med user : users)
             {
-                Element userElement = document.createElement("Medicine");
+                Element userElement = document.createElement("Med");
                 rootElement.appendChild(userElement);
                 createChildElement(document, userElement, "name", user.getName());
                 createChildElement(document, userElement, "des", user.getDes());

@@ -1,12 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class UpdateMed extends MedicineGui
+public class UpdateMed extends MainGui
 {
-    UpdateMed(Reciept reciept)
+    UpdateMed(Medicines medicines)
     {
         JFrame frame1= new JFrame();
-        frame1.setTitle("Modifying Existing Medicine Description");
+        frame1.setTitle("Modifying Existing Med Description");
 
         // Panel to define the layout. We are using GridBagLayout
         JPanel mainPanel = new JPanel();
@@ -52,11 +52,11 @@ public class UpdateMed extends MedicineGui
         JButton button6 = new JButton("Done!");
         // add a listener to button
         button6.addActionListener(e -> {
-            reciept.updateDes(NameTxt.getText(),pwdTxt.getText());
+            medicines.updateDes(NameTxt.getText(),pwdTxt.getText());
             System.out.println(NameTxt.getText());
             System.out.println(pwdTxt.getText());
             frame1.setVisible(false);
-            new Done(reciept);
+            new Done(medicines);
         });
 
         // Add label and button to panel

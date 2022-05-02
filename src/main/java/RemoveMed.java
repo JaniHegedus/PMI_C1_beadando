@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class RemoveMed extends MedicineGui
+public class RemoveMed extends MainGui
 {
-    RemoveMed(Reciept reciept)
+    RemoveMed(Medicines medicines)
     {
         // Create frame with title Registration Demo
         JFrame frame0 = new JFrame();
@@ -46,8 +46,8 @@ public class RemoveMed extends MedicineGui
         JButton button4 = new JButton("Done!");
         // add a listener to button
         button4.addActionListener(e -> {
-            reciept.removeMedicine(NameTxt.getText());
-            new Done(reciept);
+            medicines.removeMedicine(NameTxt.getText());
+            new Done(medicines);
         });
 
         // Add label and button to panel

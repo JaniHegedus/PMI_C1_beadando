@@ -1,10 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class Done extends MedicineGui
+public class Done extends MainGui
 {
-    public Done(Reciept reciept)
+    public Done(Medicines medicines)
     {
         JFrame frame2 = new JFrame();
 
@@ -35,7 +34,7 @@ public class Done extends MedicineGui
         // add a listener to button
         button7.addActionListener(e -> {
             frame2.setVisible(false);
-            new MedicineGui(reciept); // Main Form to show after the Login Form..
+            new MainGui(medicines); // Main Form to show after the Login Form..
         });
         // Add label and button to panel
         panel.add(button7, constr);

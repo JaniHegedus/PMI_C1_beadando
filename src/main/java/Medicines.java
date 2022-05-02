@@ -1,23 +1,37 @@
-import java.util.ArrayList;
 
 public class Medicines extends Medicine
 {
-    protected ArrayList<Medicine> medicineList =new ArrayList<>();
-    public String createReceipt()
+    public void addMed(String name, String des)
     {
-        String result = "";
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < medicineList.size(); i++)
+        boolean contains = false;
+        for(Med med : medList)
         {
-            result+=medicineList.get(i).getName()+" "+medicineList.get(i).getDes();
-            builder.append(medicineList.get(i).getName()).append(" ").append(medicineList.get(i).getDes());
-            if (i<medicineList.size())
+            if(med.equals(name))
             {
-                result+=",\r\n";
-                builder.append("\r\n");
+                contains=true;
             }
         }
-        //return result;
-        return builder.toString();
+        if(!contains)
+        {
+            super.medList.add(new Med(name,des));
+        }
+    }
+    public void updateDes(String name, String des)
+    {
+        for (int i = 0; i < super.medList.size(); i++) {
+            if(super.medList.get(i).getName()==name)
+            {
+                super.medList.get(i).setDes(des);
+            }
+        }
+    }
+    public void removeMedicine(String name)
+    {
+        for (int i = 0; i < super.medList.size(); i++) {
+            if(super.medList.get(i).getName() == name)
+            {
+                super.medList.remove(i);
+            }
+        }
     }
 }
