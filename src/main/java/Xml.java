@@ -57,7 +57,7 @@ public class Xml extends MedicineGui
                 DocumentBuilderFactory documentBuilderFactory
                         = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-                Document document = documentBuilder.parse("src/main/resources/Settings.xml");
+                Document document = documentBuilder.parse("Settings.xml");
 
                 Element rootElement = document.getDocumentElement();
 
