@@ -1,17 +1,10 @@
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
+import java.io.*;
+import java.util.*;
 
 public class Xml extends MainGui
 {
@@ -21,19 +14,19 @@ public class Xml extends MainGui
         element.setTextContent(text);
         parent.appendChild(element);
     }
-    public static void saveMedToXml(ArrayList<Med> users, String filepath)
+    public static void saveMedToXml(ArrayList<Med> meds, String filepath)
     {
         try {
             Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             Element rootElement = document.createElement("Medicine");
             document.appendChild(rootElement);
 
-            for (Med user : users)
+            for (Med med : meds)
             {
-                Element userElement = document.createElement("Med");
-                rootElement.appendChild(userElement);
-                createChildElement(document, userElement, "name", user.getName());
-                createChildElement(document, userElement, "des", user.getDes());
+                Element medElement = document.createElement("Med");
+                rootElement.appendChild(medElement);
+                createChildElement(document, medElement, "name", med.getName());
+                createChildElement(document, medElement, "des", med.getDes());
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -66,16 +59,16 @@ public class Xml extends MainGui
                 for (int i = 0; i < childNodeList.getLength(); i++) {
                     node = childNodeList.item(i);
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
-                        NodeList childNodesOfUserTag = node.getChildNodes();
+                        NodeList childNodesOfSettingsTag = node.getChildNodes();
                         int width = 0, height = 0,widthl = 0, heightl = 0;
-                        for (int j = 0; j < childNodesOfUserTag.getLength(); j++) {
-                            Node childNodeOfUserTag = childNodesOfUserTag.item(j);
-                            if (childNodeOfUserTag.getNodeType() == Node.ELEMENT_NODE) {
-                                switch (childNodeOfUserTag.getNodeName()) {
-                                    case "width" -> width = Integer.parseInt(childNodeOfUserTag.getTextContent());
-                                    case "height" -> height = Integer.parseInt(childNodeOfUserTag.getTextContent());
-                                    case "widthl" -> widthl = Integer.parseInt(childNodeOfUserTag.getTextContent());
-                                    case "heightl" -> heightl = Integer.parseInt(childNodeOfUserTag.getTextContent());
+                        for (int j = 0; j < childNodesOfSettingsTag.getLength(); j++) {
+                            Node childNodeOfSettingsTag = childNodesOfSettingsTag.item(j);
+                            if (childNodeOfSettingsTag.getNodeType() == Node.ELEMENT_NODE) {
+                                switch (childNodeOfSettingsTag.getNodeName()) {
+                                    case "width" -> width = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
+                                    case "height" -> height = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
+                                    case "widthl" -> widthl = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
+                                    case "heightl" -> heightl = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
                                 }
                             }
                         }

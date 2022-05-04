@@ -1,4 +1,5 @@
-public class Main{
+public class Main
+{
     public static void main(String[] args)
     {
         Medicines medicines = new Medicines();
@@ -6,6 +7,5 @@ public class Main{
         medicines.addMed("Strepsils","Strepsils Lozenges for Adults and Children Over Six contains two antiseptic ingredients for use in throat medications.");
         new MainGui(medicines);
     }
-
 }
 
