@@ -15,6 +15,12 @@ import java.util.ArrayList;
 
 public class Xml extends MainGui
 {
+    public static void createChildElement(Document document, Element parent, String tagName, String text)
+    {
+        Element element = document.createElement(tagName);
+        element.setTextContent(text);
+        parent.appendChild(element);
+    }
     public static void saveMedToXml(ArrayList<Med> users, String filepath)
     {
         try {
@@ -42,12 +48,6 @@ public class Xml extends MainGui
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    public static void createChildElement(Document document, Element parent, String tagName, String text)
-    {
-        Element element = document.createElement(tagName);
-        element.setTextContent(text);
-        parent.appendChild(element);
     }
     public static int[] getdata()
     {
