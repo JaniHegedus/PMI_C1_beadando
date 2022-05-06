@@ -1,9 +1,11 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 public class MainGui extends JFrame
@@ -19,7 +21,7 @@ public class MainGui extends JFrame
         // Menu
         JMenuBar mb;
         JMenu file = new JMenu("File");
-        JMenuItem exit;
+        JMenuItem exit,generate;
 
         // Create frame with title Registration Demo
 
@@ -28,6 +30,7 @@ public class MainGui extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setJMenuBar(mb=new JMenuBar());
+        file.add(generate=new JMenuItem("Generate test Data"));
         file.add(exit=new JMenuItem("Exit"));
         mb.add(file);
         // Panel to define the layout. We are using GridBagLayout
@@ -88,6 +91,9 @@ public class MainGui extends JFrame
         button1.addActionListener(e ->{
             frame.setVisible(false);
             new ListAll(medicines);
+        });
+        generate.addActionListener(e ->{
+            medicines.generateMed(medicines,frame);
         });
         exit.addActionListener(e ->{
             System.exit(0);
@@ -238,10 +244,27 @@ class ModifyMed extends MainGui {
 }
 
 class ListAll extends MainGui {
-    public ListAll(Medicines medicines) {
-
+    public ListAll(Medicines medicines)
+    {
         System.out.println(medicines.ListMedicines());
         JFrame frame2 = new JFrame();
+        JMenuBar mb = new JMenuBar();
+        JMenu file = new JMenu("File");
+        JMenu med = new JMenu("Medicine");
+        JMenu modify;
+        JMenuItem exit,generate,remove,update,addmed;
+
+        file.add(generate=new JMenuItem("Generate test Data"));
+        file.add(exit=new JMenuItem("Exit"));
+
+        med.add(addmed = new JMenuItem("Add") );
+        med.add(modify = new JMenu("Modify") );
+
+        modify.add(remove = new JMenuItem("Remove"));
+        modify.add(update = new JMenuItem("Update"));
+
+        mb.add(file);
+        mb.add(med);
 
         frame2.setTitle("All Med with Description:");
 
@@ -258,16 +281,36 @@ class ListAll extends MainGui {
         constr.anchor = GridBagConstraints.WEST;
 
         // Declare the required Labels
-        JTextArea Content = new JTextArea(medicines.ListMedicines());
+        String col[] = {"Name","Description"};
+
+        JTable table = new JTable()
+        {
+            DefaultTableCellRenderer renderCENTER = new DefaultTableCellRenderer();
+
+            { // initializer block
+                renderCENTER.setHorizontalAlignment(SwingConstants.CENTER);
+            }
+
+            @Override
+            public TableCellRenderer getCellRenderer (int arg0, int arg1)
+            {
+                return renderCENTER;
+            }
+        };
+        table.setBounds(0,0,400,500);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        //JTextArea Content = new JTextArea(medicines.ListMedicines());
         JButton button7 = new JButton("Save to XML!");
-        JButton button8 = new JButton("Back");
+        JButton button8 = new JButton("Back to Main");
 
         // Set the initial grid values to 0,0
         constr.gridx=0;
         constr.gridy=0;
 
         constr.gridx=1;
-        panel.add(Content, constr);
+        //panel.add(Content, constr);
+        panel.add(scrollPane, constr);
         constr.gridx=2;
         constr.gridx=0;
         constr.gridy=1;
@@ -287,15 +330,71 @@ class ListAll extends MainGui {
             frame2.setVisible(false);
             new MainGui(medicines); // Main Form to show after the Login Form..
         });
+        addmed.addActionListener(e -> {
+            frame2.setVisible(false);
+            new AddMed(medicines,"");
+        });
+        update.addActionListener(e ->{
+            /*
+            frame2.setVisible(false);
+            new UpdateMed(medicines,"");*/
+            frame2.setVisible(false);
+            Component source = (Component) e.getSource();
+            String response = (String) JOptionPane.showInputDialog(source,"Choose One?", "Update", JOptionPane.QUESTION_MESSAGE, null, medicines.createNameArray(), medicines.createNameArray()[0]);
+            new UpdateMed(medicines,response);
+        });
+        remove.addActionListener(e ->{
+            frame2.setVisible(false);
+            Component source = (Component) e.getSource();
+            String response = (String) JOptionPane.showInputDialog(source,"Choose One?", "Remove", JOptionPane.QUESTION_MESSAGE, null, medicines.createNameArray(), medicines.createNameArray()[0]);
+            medicines.removeMedicine(response);
+            JOptionPane.showMessageDialog(this,"Operation successful!");
+            new ListAll(medicines);
+        });
+        generate.addActionListener(e ->
+        {
+            frame2.setVisible(false);
+            medicines.generateMed(medicines,frame2);
+            new ListAll(medicines);
+        });
+        exit.addActionListener(e -> {
+            System.exit(0);
+        });
+        // Editable Table
+        DefaultTableModel tableModel = new DefaultTableModel(medicines.createStringArray(),col) {
 
-        // Add label and button to panel
-        panel.add(Content);
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
+        table.setModel(tableModel);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.getColumnModel().getColumn(0).setPreferredWidth(125);
+        table.getColumnModel().getColumn(1).setPreferredWidth(table.getWidth()-table.getColumnModel().getColumn(0).getWidth());
+
+        //Table Content Double Click
+        table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                if (me.getClickCount() == 2) {     // to detect doble click events
+                    JTable target = (JTable)me.getSource();
+                    int row = target.getSelectedRow(); // select a row
+                    int column = target.getSelectedColumn(); // select a column
+                    JOptionPane.showMessageDialog(null, table.getValueAt(row, column)); // get the value of a row and column.
+                }
+            }
+        });
+        table.getTableHeader().setResizingAllowed(false);
         // Add panel to frame
         frame2.add(panel);
         frame2.pack();
         frame2.setLocationRelativeTo(null);
-        frame2.setSize(Content.getWidth()+220,Content.getHeight()+100);
+        //frame2.setSize(Content.getWidth()+220,Content.getHeight()+100);
+        System.out.println(table.getHeight());
+        frame2.setSize(800,600);
+        frame2.setJMenuBar(mb);
         frame2.setIconImage(img.getImage());
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame2.setVisible(true);
