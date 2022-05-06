@@ -173,25 +173,25 @@ class ModifyMed extends MainGui {
 
         // add a listener to button
         button2.addActionListener(e -> {
-            frame4.setVisible(false);
             try {
                 String medname = JOptionPane.showInputDialog("Removable Med: ");
                 if(!medname.equals(""))
                 {
                     if(medicines.contains(medname))
                     {
+                        frame4.setVisible(false);
                         JOptionPane.showMessageDialog(this, "Operation successful!");
                         medicines.removeMedicine(medname);
                         new MainGui(medicines); // Main Form to show after the Login Form..
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(this, "Operation failed!\nGiven Medicine is not found!");
-                        int reply =JOptionPane.showConfirmDialog(this,"Do you want to modyfie the existing?");
+                        JOptionPane.showMessageDialog(this, "Operation failed!\nMedicine with given Name is not found!");
+                        int reply =JOptionPane.showConfirmDialog(this,"Do you want to create new with given name?");
                         if(reply==JOptionPane.YES_OPTION)
                         {
                             frame4.setVisible(false);
-                            new UpdateMed(medicines,medname);
+                            new AddMed(medicines,medname);
                         }
                         else {
                             frame4.setVisible(false);
@@ -383,7 +383,7 @@ class AddMed extends MainGui
                 else
                 {
                     JOptionPane.showMessageDialog(this, "Operation failed!\nName is taken!");
-                    int reply =JOptionPane.showConfirmDialog(this,"Do you want to modyfie the existing?");
+                    int reply =JOptionPane.showConfirmDialog(this,"Do you want to modify the existing?");
                     if(reply==JOptionPane.YES_OPTION)
                     {
                         frame1.setVisible(false);
