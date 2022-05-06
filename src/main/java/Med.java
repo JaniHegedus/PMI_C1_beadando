@@ -38,7 +38,7 @@ class Medicine extends Med
         {
             result+= medList.get(i).getName()+" "+ medList.get(i).getDes();
             builder.append(medList.get(i).getName()).append(" ").append(medList.get(i).getDes());
-            if (i< medList.size())
+            if (i< medList.size()-1)
             {
                 result+=",\r\n";
                 builder.append("\r\n");
@@ -52,23 +52,24 @@ class Medicines extends Medicine
 {
     public void addMed(String name, String des)
     {
+        super.medList.add(new Med(name,des));
+    }
+    public boolean contains(String name)
+    {
         boolean contains = false;
         for(Med med : medList)
         {
-            if(med.equals(name))
+            if(med.getName().equals(name))
             {
                 contains=true;
             }
         }
-        if(!contains)
-        {
-            super.medList.add(new Med(name,des));
-        }
+        return contains;
     }
     public void updateDes(String name, String des)
     {
         for (int i = 0; i < super.medList.size(); i++) {
-            if(super.medList.get(i).getName()==name)
+            if(super.medList.get(i).getName().equals(name))
             {
                 super.medList.get(i).setDes(des);
             }
@@ -77,7 +78,7 @@ class Medicines extends Medicine
     public void removeMedicine(String name)
     {
         for (int i = 0; i < super.medList.size(); i++) {
-            if(super.medList.get(i).getName() == name)
+            if(super.medList.get(i).getName().equals(name))
             {
                 super.medList.remove(i);
             }
