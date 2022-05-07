@@ -149,7 +149,7 @@ class ModifyMed extends MainGui
 
         // Declare the required Labels
         JLabel NameLabel = new JLabel("Remove a medicines:");
-        JLabel pwdLabel = new JLabel("Modify a medicines's description :");
+        JLabel pwdLabel = new JLabel("Modify a medicine's description :");
 
         // Declare Text fields
         JButton button2 = new JButton("Remove");
@@ -174,15 +174,15 @@ class ModifyMed extends MainGui
         // add a listener to button
         button2.addActionListener(e -> {
             try {
-                String medname = JOptionPane.showInputDialog("Removable Med: ");
-                if(!medname.equals(""))
+                String rename = JOptionPane.showInputDialog("Removable Med: ");
+                if(!rename.equals(""))
                 {
-                    if(medicines.contains(medname))
+                    if(medicines.contains(rename))
                     {
                         frame4.setVisible(false);
                         JOptionPane.showMessageDialog(this, "Operation successful!");
-                        medicines.removeMedicine(medname);
-                        new MainGui(medicines); // Main Form to show after the Login Form..
+                        medicines.removeMedicine(rename);
+                        new MainGui(medicines); // Main Form to show after the Login Form.
                     }
                     else
                     {
@@ -191,9 +191,7 @@ class ModifyMed extends MainGui
                         if(reply==JOptionPane.YES_OPTION)
                         {
                             frame4.setVisible(false);
-                            new AddMed(medicines,medname,"");
-                        }
-                        else {
+                            new AddMed(medicines,rename,"");
                         }
                     }
                 }
@@ -212,7 +210,7 @@ class ModifyMed extends MainGui
         });
         button3.addActionListener(e -> {
             frame4.setVisible(false);
-            new UpdateMed(medicines,"",""); // Main Form to show after the Login Form..
+            new UpdateMed(medicines,"",""); // Main Form to show after the Login Form.
         });
         back.addActionListener(e ->
         {
@@ -242,12 +240,12 @@ class ListAll extends MainGui {
         JMenu file = new JMenu("File");
         JMenu med = new JMenu("Medicine");
         JMenu modify;
-        JMenuItem exit,generate,remove,update,addmed;
+        JMenuItem exit,generate,remove,update,added;
 
         file.add(generate=new JMenuItem("Generate test Data"));
         file.add(exit=new JMenuItem("Exit"));
 
-        med.add(addmed = new JMenuItem("Add") );
+        med.add(added = new JMenuItem("Add") );
         med.add(modify = new JMenu("Modify") );
 
         modify.add(remove = new JMenuItem("Remove"));
@@ -311,13 +309,13 @@ class ListAll extends MainGui {
             saveToXML(medicines);
             frame2.setVisible(false);
             JOptionPane.showMessageDialog(frame2,"Operation successful!");
-            new MainGui(medicines); // Main Form to show after the Login Form..
+            new MainGui(medicines); // Main Form to show after the Login Form.
         });
         button8.addActionListener(e -> {
             frame2.setVisible(false);
-            new MainGui(medicines); // Main Form to show after the Login Form..
+            new MainGui(medicines); // Main Form to show after the Login Form.
         });
-        addmed.addActionListener(e -> {
+        added.addActionListener(e -> {
             frame2.setVisible(false);
             new AddMed(medicines,"","");
         });
@@ -367,7 +365,7 @@ class ListAll extends MainGui {
         //Table Content Double Click
         table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
-                if (me.getClickCount() == 2) {     // to detect doble click events
+                if (me.getClickCount() == 2) {     // to detect double click events
                     JTable target = (JTable)me.getSource();
                     int row = target.getSelectedRow(); // select a row
                     int column = target.getSelectedColumn(); // select a column
@@ -467,7 +465,7 @@ class AddMed extends MainGui
                     frame1.setVisible(false);
                     medicines.addMed(NameTxt.getText(), pwdTxt.getText());
                     JOptionPane.showMessageDialog(this, "Operation successful!");
-                    new MainGui(medicines); // Main Form to show after the Login Form..
+                    new MainGui(medicines); // Main Form to show after the Login Form.
                 }
                 else
                 {
@@ -481,8 +479,6 @@ class AddMed extends MainGui
                             if(NameTxt.getText().equals(meds.getName())) new UpdateMed(medicines, meds.getName(), meds.getDes());
                         }
 
-                    }
-                    else {
                     }
                 }
             }
@@ -587,7 +583,7 @@ class UpdateMed extends MainGui
                     frame1.setVisible(false);
                     medicines.updateDes(NameTxt.getText(), pwdTxt.getText());
                     JOptionPane.showMessageDialog(frame1, "Operation successful!");
-                    new MainGui(medicines); // Main Form to show after the Login Form..
+                    new MainGui(medicines); // Main Form to show after the Login Form.
                 }
                 else
                 {
@@ -597,8 +593,6 @@ class UpdateMed extends MainGui
                     {
                         frame1.setVisible(false);
                         new AddMed(medicines,NameTxt.getText(),pwdTxt.getText());
-                    }
-                    else {
                     }
                 }
             }
@@ -694,7 +688,7 @@ class SplashScreen extends MainGui
         panel.add(progressBar);
     }
     public void runningPBar(){
-        int i=0;//Creating an integer variable and intializing it to 0
+        int i=0;//Creating an integer variable and initializing it to 0
 
         while( i<=100)
         {
