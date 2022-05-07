@@ -199,11 +199,13 @@ class ModifyMed extends MainGui
                 }
                 else
                 {
+                    frame4.setVisible(false);
                     JOptionPane.showMessageDialog(this, "Operation failed!\nNo Name is given!");
                     new ModifyMed(medicines);
                 }
             }catch (NullPointerException exception)
             {
+                frame4.setVisible(false);
                 new ModifyMed(medicines);
             }
 
