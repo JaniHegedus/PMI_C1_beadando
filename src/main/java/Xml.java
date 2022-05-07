@@ -60,16 +60,13 @@ public class Xml extends MainGui
                     node = childNodeList.item(i);
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
                         NodeList childNodesOfSettingsTag = node.getChildNodes();
-                        int width = 0, height = 0,widthl = 0, heightl = 0,widthd=0,heightd=0;
-                        String bgimage;
+                        int width = 0, height = 0,widthd=0,heightd=0;
                         for (int j = 0; j < childNodesOfSettingsTag.getLength(); j++) {
                             Node childNodeOfSettingsTag = childNodesOfSettingsTag.item(j);
                             if (childNodeOfSettingsTag.getNodeType() == Node.ELEMENT_NODE) {
                                 switch (childNodeOfSettingsTag.getNodeName()) {
                                     case "width" -> width = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
                                     case "height" -> height = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
-                                    case "widthl" -> widthl = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
-                                    case "heightl" -> heightl = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
                                     case "widthd" -> widthd = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
                                     case "heightd" -> heightd = Integer.parseInt(childNodeOfSettingsTag.getTextContent());
                                 }
@@ -86,38 +83,5 @@ public class Xml extends MainGui
             }
             return Settings;
         }
-    }
-    public String getbgimage()
-    {
-        String bgimage="";
-        try {
-            DocumentBuilderFactory documentBuilderFactory
-                    = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.parse("Settings.xml");
-
-            Element rootElement = document.getDocumentElement();
-
-            NodeList childNodeList = rootElement.getChildNodes();
-            Node node;
-            for (int i = 0; i < childNodeList.getLength(); i++) {
-                node = childNodeList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    NodeList childNodesOfSettingsTag = node.getChildNodes();
-                    for (int j = 0; j < childNodesOfSettingsTag.getLength(); j++) {
-                        Node childNodeOfSettingsTag = childNodesOfSettingsTag.item(j);
-                        if (childNodeOfSettingsTag.getNodeType() == Node.ELEMENT_NODE) {
-                            if(childNodeOfSettingsTag.getNodeName()=="bgimage")
-                            {
-                                bgimage=childNodeOfSettingsTag.getTextContent();
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bgimage;
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Settings>
-    <Size>
+    <Settings>
         <width>400</width>
         <height>200</height>
         <widthd>200</widthd>
         <heightd>100</heightd>
-    </Size>
+    </Settings>
 </Settings>

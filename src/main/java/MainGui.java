@@ -12,9 +12,11 @@ public class MainGui extends JFrame
 {
     public final String url = "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm373batch15-217-01.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=d8bbc66e02e81095950de55fcc9347f5";
     public final String url0 ="https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701450862.jpg";
-    final Image image = BackgroundImage.requestImage(url);
-    final Image image0 = BackgroundImage.requestImage(url0);
-    ImageIcon img = new ImageIcon("src/main/resources/icon.png");
+
+    public final Image image = BackgroundImage.requestImage(url);
+    public final Image image0 = BackgroundImage.requestImage(url0);
+
+    public ImageIcon img = new ImageIcon("src/main/resources/icon.png");
     //BackgroundImage
     public MainGui(Medicines medicines, Xml newxml)
     {
@@ -117,10 +119,6 @@ public class MainGui extends JFrame
 class ModifyMed extends MainGui
 {
     ModifyMed(Medicines medicines,Xml newxml) {
-        //BackgroundImage
-        BackgroundImage newbackgroundimage = new BackgroundImage();
-        final Image image = newbackgroundimage.requestImage(url);
-
         // Menu
         JMenuBar mb;
         JMenu file = new JMenu("File");
@@ -662,7 +660,7 @@ class SplashScreen extends MainGui
         protected void paintComponent(Graphics g)
         {
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, null);
+            g.drawImage(image0, 0, 0, null);
         }
     };
     JLabel text=new JLabel("Medicine Database");
