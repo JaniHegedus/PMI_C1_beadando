@@ -84,7 +84,7 @@ public class MainGui extends JFrame
         // add a listener to button
         button.addActionListener(e -> {
             frame.setVisible(false);
-            new AddMed(medicines,"");
+            new AddMed(medicines,"","");
         });
         button0.addActionListener(e -> {
             frame.setVisible(false);
@@ -191,11 +191,9 @@ class ModifyMed extends MainGui
                         if(reply==JOptionPane.YES_OPTION)
                         {
                             frame4.setVisible(false);
-                            new AddMed(medicines,medname);
+                            new AddMed(medicines,medname,"");
                         }
                         else {
-                            frame4.setVisible(false);
-                            new MainGui();
                         }
                     }
                 }
@@ -319,7 +317,7 @@ class ListAll extends MainGui {
         });
         addmed.addActionListener(e -> {
             frame2.setVisible(false);
-            new AddMed(medicines,"");
+            new AddMed(medicines,"","");
         });
         update.addActionListener(e ->{
             frame2.setVisible(false);
@@ -396,7 +394,7 @@ class ListAll extends MainGui {
 }
 class AddMed extends MainGui
 {
-    public AddMed(Medicines medicines,String name)
+    public AddMed(Medicines medicines,String name,String des)
     {
         // Menu
         JMenuBar mb;
@@ -441,6 +439,7 @@ class AddMed extends MainGui
         JTextField NameTxt = new JTextField(20);
         JTextField pwdTxt = new JTextField(20);
         NameTxt.setText(name);
+        pwdTxt.setText(des);
 
         panel.add(NameLabel, constr);
         constr.gridx=1;
@@ -482,8 +481,6 @@ class AddMed extends MainGui
 
                     }
                     else {
-                        frame1.setVisible(false);
-                        new MainGui();
                     }
                 }
             }
@@ -597,11 +594,9 @@ class UpdateMed extends MainGui
                     if(reply==JOptionPane.YES_OPTION)
                     {
                         frame1.setVisible(false);
-                        new AddMed(medicines,NameTxt.getText());
+                        new AddMed(medicines,NameTxt.getText(),pwdTxt.getText());
                     }
                     else {
-                        frame1.setVisible(false);
-                        new MainGui(medicines);
                     }
                 }
             }
