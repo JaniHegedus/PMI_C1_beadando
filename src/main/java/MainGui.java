@@ -18,7 +18,7 @@ public class MainGui extends JFrame
 
     public ImageIcon img = new ImageIcon("src/main/resources/icon.png");
     //BackgroundImage
-    public MainGui(Medicines medicines, Xml newxml)
+    public MainGui(Medicines medicines)
     {
         // Menu
         JMenuBar mb;
@@ -84,28 +84,24 @@ public class MainGui extends JFrame
         // add a listener to button
         button.addActionListener(e -> {
             frame.setVisible(false);
-            new AddMed(medicines, newxml,"");
+            new AddMed(medicines,"");
         });
         button0.addActionListener(e -> {
             frame.setVisible(false);
-            new ModifyMed(medicines, newxml);
+            new ModifyMed(medicines);
         });
         button1.addActionListener(e ->{
             frame.setVisible(false);
-            new ListAll(medicines, newxml);
+            new ListAll(medicines);
         });
-        generate.addActionListener(e ->{
-            medicines.generateMed(medicines,frame);
-        });
-        exit.addActionListener(e ->{
-            System.exit(0);
-        });
+        generate.addActionListener(e -> medicines.generateMed(medicines,frame));
+        exit.addActionListener(e -> System.exit(0));
 
         // Add panel to frame
         frame.setJMenuBar(mb);
         frame.add(panel);
         frame.pack();
-        frame.setSize(newxml.getdata()[0], newxml.getdata()[1]);
+        frame.setSize(Xml.getdata()[0], Xml.getdata()[1]);
         frame.setResizable(false);
         frame.setIconImage(img.getImage());
         frame.setLocationRelativeTo(null);
@@ -118,7 +114,7 @@ public class MainGui extends JFrame
 }
 class ModifyMed extends MainGui
 {
-    ModifyMed(Medicines medicines,Xml newxml) {
+    ModifyMed(Medicines medicines) {
         // Menu
         JMenuBar mb;
         JMenu file = new JMenu("File");
@@ -186,7 +182,7 @@ class ModifyMed extends MainGui
                         frame4.setVisible(false);
                         JOptionPane.showMessageDialog(this, "Operation successful!");
                         medicines.removeMedicine(medname);
-                        new MainGui(medicines, newxml); // Main Form to show after the Login Form..
+                        new MainGui(medicines); // Main Form to show after the Login Form..
                     }
                     else
                     {
@@ -195,7 +191,7 @@ class ModifyMed extends MainGui
                         if(reply==JOptionPane.YES_OPTION)
                         {
                             frame4.setVisible(false);
-                            new AddMed(medicines, newxml,medname);
+                            new AddMed(medicines,medname);
                         }
                         else {
                             frame4.setVisible(false);
@@ -206,32 +202,30 @@ class ModifyMed extends MainGui
                 else
                 {
                     JOptionPane.showMessageDialog(this, "Operation failed!\nNo Name is given!");
-                    new ModifyMed(medicines, newxml);
+                    new ModifyMed(medicines);
                 }
             }catch (NullPointerException exception)
             {
-                new ModifyMed(medicines, newxml);
+                new ModifyMed(medicines);
             }
 
         });
         button3.addActionListener(e -> {
             frame4.setVisible(false);
-            new UpdateMed(medicines, newxml,"",""); // Main Form to show after the Login Form..
+            new UpdateMed(medicines,"",""); // Main Form to show after the Login Form..
         });
         back.addActionListener(e ->
         {
             frame4.setVisible(false);
-            new MainGui(medicines, newxml);
+            new MainGui(medicines);
         });
-        exit.addActionListener(e ->{
-            System.exit(0);
-        });
+        exit.addActionListener(e -> System.exit(0));
 
         // Add panel to frame
         frame4.setJMenuBar(mb);
         frame4.add(panel);
         frame4.pack();
-        frame4.setSize(newxml.getdata()[0], newxml.getdata()[1]);
+        frame4.setSize(Xml.getdata()[0], Xml.getdata()[1]);
         frame4.setLocationRelativeTo(null);
         frame4.setIconImage(img.getImage());
         frame4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -240,7 +234,7 @@ class ModifyMed extends MainGui
 }
 
 class ListAll extends MainGui {
-    public ListAll(Medicines medicines, Xml newxml)
+    public ListAll(Medicines medicines)
     {
         System.out.println(medicines.ListMedicines());
         JFrame frame2 = new JFrame();
@@ -277,11 +271,11 @@ class ListAll extends MainGui {
         constr.anchor = GridBagConstraints.WEST;
 
         // Declare the required Labels
-        String col[] = {"Name","Description"};
+        String[] col = {"Name","Description"};
 
         JTable table = new JTable()
         {
-            DefaultTableCellRenderer renderCENTER = new DefaultTableCellRenderer();
+            final DefaultTableCellRenderer renderCENTER = new DefaultTableCellRenderer();
 
             { // initializer block
                 renderCENTER.setHorizontalAlignment(SwingConstants.CENTER);
@@ -301,17 +295,14 @@ class ListAll extends MainGui {
         JButton button8 = new JButton("Back to Main");
 
         // Set the initial grid values to 0,0
-        constr.gridx=0;
         constr.gridy=0;
 
         constr.gridx=1;
         //panel.add(Content, constr);
         panel.add(scrollPane, constr);
-        constr.gridx=2;
         constr.gridx=0;
         constr.gridy=1;
         panel.add(button7, constr);
-        constr.gridx=1;
         constr.gridx=2;
         panel.add(button8, constr);
 
@@ -320,20 +311,17 @@ class ListAll extends MainGui {
             saveToXML(medicines);
             frame2.setVisible(false);
             JOptionPane.showMessageDialog(frame2,"Operation successful!");
-            new MainGui(medicines, newxml); // Main Form to show after the Login Form..
+            new MainGui(medicines); // Main Form to show after the Login Form..
         });
         button8.addActionListener(e -> {
             frame2.setVisible(false);
-            new MainGui(medicines, newxml); // Main Form to show after the Login Form..
+            new MainGui(medicines); // Main Form to show after the Login Form..
         });
         addmed.addActionListener(e -> {
             frame2.setVisible(false);
-            new AddMed(medicines, newxml,"");
+            new AddMed(medicines,"");
         });
         update.addActionListener(e ->{
-            /*
-            frame2.setVisible(false);
-            new UpdateMed(medicines,"");*/
             frame2.setVisible(false);
             Component source = (Component) e.getSource();
             String response = (String) JOptionPane.showInputDialog(source,"Choose One?", "Update", JOptionPane.QUESTION_MESSAGE, null, medicines.createNameArray(), medicines.createNameArray()[0]);
@@ -341,7 +329,7 @@ class ListAll extends MainGui {
             {
                 if(meds.getName().equals(response))
                 {
-                    new UpdateMed(medicines, newxml,meds.getName(),meds.getDes());
+                    new UpdateMed(medicines,meds.getName(),meds.getDes());
                 }
             }
 
@@ -352,17 +340,15 @@ class ListAll extends MainGui {
             String response = (String) JOptionPane.showInputDialog(source,"Choose One?", "Remove", JOptionPane.QUESTION_MESSAGE, null, medicines.createNameArray(), medicines.createNameArray()[0]);
             medicines.removeMedicine(response);
             JOptionPane.showMessageDialog(this,"Operation successful!");
-            new ListAll(medicines, newxml);
+            new ListAll(medicines);
         });
         generate.addActionListener(e ->
         {
             frame2.setVisible(false);
             medicines.generateMed(medicines,frame2);
-            new ListAll(medicines, newxml);
+            new ListAll(medicines);
         });
-        exit.addActionListener(e -> {
-            System.exit(0);
-        });
+        exit.addActionListener(e -> System.exit(0));
         // Editable Table
         DefaultTableModel tableModel = new DefaultTableModel(medicines.createStringArray(),col) {
 
@@ -410,7 +396,7 @@ class ListAll extends MainGui {
 }
 class AddMed extends MainGui
 {
-    public AddMed(Medicines medicines,Xml newxml,String name)
+    public AddMed(Medicines medicines,String name)
     {
         // Menu
         JMenuBar mb;
@@ -480,7 +466,7 @@ class AddMed extends MainGui
                     frame1.setVisible(false);
                     medicines.addMed(NameTxt.getText(), pwdTxt.getText());
                     JOptionPane.showMessageDialog(this, "Operation successful!");
-                    new MainGui(medicines, newxml); // Main Form to show after the Login Form..
+                    new MainGui(medicines); // Main Form to show after the Login Form..
                 }
                 else
                 {
@@ -491,7 +477,7 @@ class AddMed extends MainGui
                         frame1.setVisible(false);
                         for(Med meds:medicines.medList)
                         {
-                            if(NameTxt.getText().equals(meds.getName())) new UpdateMed(medicines, newxml, meds.getName(), meds.getDes());
+                            if(NameTxt.getText().equals(meds.getName())) new UpdateMed(medicines, meds.getName(), meds.getDes());
                         }
 
                     }
@@ -505,16 +491,15 @@ class AddMed extends MainGui
                 if (NameTxt.getText().equals("") && pwdTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!\n No Description given!");
                 else if(NameTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!");
                 else if(pwdTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Description given!");
+                else System.out.println("This cant happen!");
             }
         });
         back.addActionListener(e ->
         {
             frame1.setVisible(false);
-            new MainGui(medicines, newxml);
+            new MainGui(medicines);
         });
-        exit.addActionListener(e ->{
-            System.exit(0);
-        });
+        exit.addActionListener(e -> System.exit(0));
         // Add label and button to panel
         panel.add(button6, constr);
 
@@ -522,7 +507,7 @@ class AddMed extends MainGui
         // Add panel to frame
         frame1.add(panel);
         frame1.pack();
-        frame1.setSize(newxml.getdata()[0], newxml.getdata()[1]);
+        frame1.setSize(Xml.getdata()[0], Xml.getdata()[1]);
         frame1.setJMenuBar(mb);
         frame1.setLocationRelativeTo(null);
         frame1.setIconImage(img.getImage());
@@ -532,7 +517,7 @@ class AddMed extends MainGui
 }
 class UpdateMed extends MainGui
 {
-    UpdateMed(Medicines medicines,Xml newxml, String name,String des)
+    UpdateMed(Medicines medicines, String name,String des)
     {
 
         // Menu
@@ -603,7 +588,7 @@ class UpdateMed extends MainGui
                     frame1.setVisible(false);
                     medicines.updateDes(NameTxt.getText(), pwdTxt.getText());
                     JOptionPane.showMessageDialog(frame1, "Operation successful!");
-                    new MainGui(medicines, newxml); // Main Form to show after the Login Form..
+                    new MainGui(medicines); // Main Form to show after the Login Form..
                 }
                 else
                 {
@@ -612,11 +597,11 @@ class UpdateMed extends MainGui
                     if(reply==JOptionPane.YES_OPTION)
                     {
                         frame1.setVisible(false);
-                        new AddMed(medicines, newxml,NameTxt.getText());
+                        new AddMed(medicines,NameTxt.getText());
                     }
                     else {
                         frame1.setVisible(false);
-                        new MainGui(medicines, newxml);
+                        new MainGui(medicines);
                     }
                 }
             }
@@ -629,11 +614,9 @@ class UpdateMed extends MainGui
         back.addActionListener(e ->
         {
             frame1.setVisible(false);
-            new MainGui(medicines, newxml);
+            new MainGui(medicines);
         });
-        exit.addActionListener(e ->{
-            System.exit(0);
-        });
+        exit.addActionListener(e -> System.exit(0));
         // Add label and button to panel
         panel.add(button6, constr);
 
@@ -641,7 +624,7 @@ class UpdateMed extends MainGui
         // Add panel to frame
         frame1.add(panel);
         frame1.pack();
-        frame1.setSize(newxml.getdata()[0], newxml.getdata()[1]);
+        frame1.setSize(Xml.getdata()[0], Xml.getdata()[1]);
         frame1.setJMenuBar(mb);
         frame1.setIconImage(img.getImage());
         frame1.setLocationRelativeTo(null);
@@ -678,13 +661,13 @@ class SplashScreen extends MainGui
     JLabel text=new JLabel("Medicine Database");
     JProgressBar progressBar=new JProgressBar();
     JLabel message=new JLabel();//Crating a JLabel for displaying the message
-    public SplashScreen(Medicines medicines,Xml newxml)
+    public SplashScreen(Medicines medicines)
     {
         createGUI();
         addText();
         addProgressBar();
         runningPBar();
-        new MainGui(medicines,newxml);
+        new MainGui(medicines);
     }
     public void createGUI(){
         frame=new JFrame();
@@ -721,7 +704,7 @@ class SplashScreen extends MainGui
             try{
                 Thread.sleep(15);//Pausing execution for 50 milliseconds
                 progressBar.setValue(i);//Setting value of Progress Bar
-                message.setText("LOADING "+Integer.toString(i)+"%");//Setting text of the message JLabel
+                message.setText("LOADING "+ i +"%");//Setting text of the message JLabel
                 i++;
                 if(i==100)
                     frame.dispose();
