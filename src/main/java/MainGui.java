@@ -240,13 +240,14 @@ class ListAll extends MainGui {
         JMenu file = new JMenu("File");
         JMenu med = new JMenu("Medicine");
         JMenu modify;
-        JMenuItem exit,generate,remove,update,added;
+        JMenuItem exit,generate,remove,update,added,removea;
 
         file.add(generate=new JMenuItem("Generate test Data"));
         file.add(exit=new JMenuItem("Exit"));
 
         med.add(added = new JMenuItem("Add") );
         med.add(modify = new JMenu("Modify") );
+        med.add(removea = new JMenuItem("Remove all") );
 
         modify.add(remove = new JMenuItem("Remove"));
         modify.add(update = new JMenuItem("Update"));
@@ -345,6 +346,15 @@ class ListAll extends MainGui {
             frame2.setVisible(false);
             medicines.generateMed(medicines,frame2);
             new ListAll(medicines);
+        });
+        removea.addActionListener(e -> {
+            if (!medicines.medList.isEmpty()){
+                medicines.removeAll();
+                frame2.setVisible(false);
+                JOptionPane.showMessageDialog(this ,"All added Medicine is removed");
+                new ListAll(medicines);
+            }
+            else JOptionPane.showMessageDialog(this ,"The Medicine List is empty");
         });
         exit.addActionListener(e -> System.exit(0));
         // Editable Table

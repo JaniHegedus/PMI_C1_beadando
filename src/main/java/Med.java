@@ -134,4 +134,8 @@ class Medicines extends Medicine
         if(contains) JOptionPane.showMessageDialog(frame,"Already Added");
         else JOptionPane.showMessageDialog(frame ,"Test Data is Generated!");
     }
+    public void removeAll()
+    {
+        medList= new ArrayList<>();
+    }
 }
