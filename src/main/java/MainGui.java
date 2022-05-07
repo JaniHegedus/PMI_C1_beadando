@@ -216,7 +216,7 @@ class ModifyMed extends MainGui
         });
         button3.addActionListener(e -> {
             frame4.setVisible(false);
-            new UpdateMed(medicines, newxml,""); // Main Form to show after the Login Form..
+            new UpdateMed(medicines, newxml,"",""); // Main Form to show after the Login Form..
         });
         back.addActionListener(e ->
         {
@@ -337,7 +337,14 @@ class ListAll extends MainGui {
             frame2.setVisible(false);
             Component source = (Component) e.getSource();
             String response = (String) JOptionPane.showInputDialog(source,"Choose One?", "Update", JOptionPane.QUESTION_MESSAGE, null, medicines.createNameArray(), medicines.createNameArray()[0]);
-            new UpdateMed(medicines, newxml,response);
+            for(Med meds:medicines.medList)
+            {
+                if(meds.getName().equals(response))
+                {
+                    new UpdateMed(medicines, newxml,meds.getName(),meds.getDes());
+                }
+            }
+
         });
         remove.addActionListener(e ->{
             frame2.setVisible(false);
@@ -482,7 +489,11 @@ class AddMed extends MainGui
                     if(reply==JOptionPane.YES_OPTION)
                     {
                         frame1.setVisible(false);
-                        new UpdateMed(medicines, newxml,NameTxt.getText());
+                        for(Med meds:medicines.medList)
+                        {
+                            if(NameTxt.getText().equals(meds.getName())) new UpdateMed(medicines, newxml, meds.getName(), meds.getDes());
+                        }
+
                     }
                     else {
                         frame1.setVisible(false);
@@ -521,7 +532,7 @@ class AddMed extends MainGui
 }
 class UpdateMed extends MainGui
 {
-    UpdateMed(Medicines medicines,Xml newxml, String name)
+    UpdateMed(Medicines medicines,Xml newxml, String name,String des)
     {
 
         // Menu
@@ -566,6 +577,7 @@ class UpdateMed extends MainGui
         JTextField NameTxt = new JTextField(20);
         JTextField pwdTxt = new JTextField(20);
         NameTxt.setText(name);
+        pwdTxt.setText(des);
 
         panel.add(NameLabel, constr);
         constr.gridx=1;
@@ -716,9 +728,6 @@ class SplashScreen extends MainGui
             }catch(Exception e){
                 e.printStackTrace();
             }
-
-
-
         }
     }
 }
