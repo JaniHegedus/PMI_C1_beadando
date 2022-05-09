@@ -468,7 +468,7 @@ class AddMed extends MainGui
         JButton button6 = new JButton("Done!");
         // add a listener to button
         button6.addActionListener(e -> {
-            if(!NameTxt.getText().equals("")&&!pwdTxt.getText().equals(""))
+            if(!NameTxt.getText().equals("")&&!pwdTxt.getText().equals("")&&!NameTxt.getText().equals(" ")&&!pwdTxt.getText().equals(" "))
             {
                 if(!medicines.contains(NameTxt.getText()))
                 {
