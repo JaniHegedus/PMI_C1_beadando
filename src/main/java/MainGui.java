@@ -111,6 +111,9 @@ public class MainGui extends JFrame
     public MainGui() {
 
     }
+    boolean onlySpaces(String str) {
+        return str.trim().length() == 0;
+    }
 }
 class ModifyMed extends MainGui
 {
@@ -175,7 +178,7 @@ class ModifyMed extends MainGui
         button2.addActionListener(e -> {
             try {
                 String rename = JOptionPane.showInputDialog("Removable Med: ");
-                if(!rename.equals(""))
+                if(!rename.equals("")&&!onlySpaces(rename))
                 {
                     if(medicines.contains(rename))
                     {
@@ -468,7 +471,7 @@ class AddMed extends MainGui
         JButton button6 = new JButton("Done!");
         // add a listener to button
         button6.addActionListener(e -> {
-            if(!NameTxt.getText().equals("")&&!pwdTxt.getText().equals("")&&!NameTxt.getText().equals(" ")&&!pwdTxt.getText().equals(" "))
+            if(!NameTxt.getText().equals("")&&!pwdTxt.getText().equals("")&&!onlySpaces(NameTxt.getText())&&!onlySpaces(pwdTxt.getText()))
             {
                 if(!medicines.contains(NameTxt.getText()))
                 {
@@ -493,9 +496,9 @@ class AddMed extends MainGui
                 }
             }
             else {
-                if (NameTxt.getText().equals("") && pwdTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!\n No Description given!");
-                else if(NameTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!");
-                else if(pwdTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Description given!");
+                if (NameTxt.getText().equals("") && pwdTxt.getText().equals("")||(onlySpaces(NameTxt.getText())&&onlySpaces(pwdTxt.getText()))) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!\n No Description given!");
+                else if(NameTxt.getText().equals("")||onlySpaces(NameTxt.getText())) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!");
+                else if(pwdTxt.getText().equals("")||onlySpaces(pwdTxt.getText())) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Description given!");
                 else System.out.println("This cant happen!");
             }
         });
@@ -607,9 +610,11 @@ class UpdateMed extends MainGui
                 }
             }
             else {
-                if (NameTxt.getText().equals("") && pwdTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!\n No Description given!");
-                else if(NameTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!");
-                else if(pwdTxt.getText().equals("")) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Description given!");
+
+                if (NameTxt.getText().equals("") && pwdTxt.getText().equals("")||(onlySpaces(NameTxt.getText())&&onlySpaces(pwdTxt.getText()))) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!\n No Description given!");
+                else if(NameTxt.getText().equals("")||onlySpaces(NameTxt.getText())) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Name given!");
+                else if(pwdTxt.getText().equals("")||onlySpaces(pwdTxt.getText())) JOptionPane.showMessageDialog(frame1, "Operation failed!\n No Description given!");
+                else System.out.println("This cant happen!");
             }
         });
         back.addActionListener(e ->
