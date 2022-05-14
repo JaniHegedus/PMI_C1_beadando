@@ -7,6 +7,7 @@ public class Med
     private String des;
 
     public Med() {
+
     }
 
     public Med(String name, String des) {

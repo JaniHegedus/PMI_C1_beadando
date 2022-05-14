@@ -6,6 +6,8 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URL;
 public class MainGui extends JFrame
@@ -109,7 +111,6 @@ public class MainGui extends JFrame
         frame.setVisible(true);
     }
     public MainGui() {
-
     }
     boolean onlySpaces(String str) {
         return str.trim().length() == 0;
@@ -222,6 +223,12 @@ class ModifyMed extends MainGui
         });
         exit.addActionListener(e -> System.exit(0));
 
+        frame4.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                new MainGui(medicines);
+            }
+        });
         // Add panel to frame
         frame4.setJMenuBar(mb);
         frame4.add(panel);
@@ -229,7 +236,7 @@ class ModifyMed extends MainGui
         frame4.setSize(Xml.getdata()[0], Xml.getdata()[1]);
         frame4.setLocationRelativeTo(null);
         frame4.setIconImage(img.getImage());
-        frame4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame4.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame4.setVisible(true);
     }
 }
@@ -244,7 +251,6 @@ class ListAll extends MainGui {
         JMenu med = new JMenu("Medicine");
         JMenu modify;
         JMenuItem exit,generate,remove,update,added,removea;
-
         file.add(generate=new JMenuItem("Generate test Data"));
         file.add(exit=new JMenuItem("Exit"));
 
@@ -378,7 +384,7 @@ class ListAll extends MainGui {
         //Table Content Double Click
         table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
-                if (me.getClickCount() == 2) {     // to detect double click events
+                    if (me.getClickCount() == 2) {     // to detect double click events
                     JTable target = (JTable)me.getSource();
                     int row = target.getSelectedRow(); // select a row
                     int column = target.getSelectedColumn(); // select a column
@@ -396,7 +402,13 @@ class ListAll extends MainGui {
         frame2.setSize(800,600);
         frame2.setJMenuBar(mb);
         frame2.setIconImage(img.getImage());
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame2.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                new MainGui(medicines);
+            }
+        });
         frame2.setVisible(true);
 
     }
@@ -511,7 +523,6 @@ class AddMed extends MainGui
         // Add label and button to panel
         panel.add(button6, constr);
 
-
         // Add panel to frame
         frame1.add(panel);
         frame1.pack();
@@ -519,7 +530,13 @@ class AddMed extends MainGui
         frame1.setJMenuBar(mb);
         frame1.setLocationRelativeTo(null);
         frame1.setIconImage(img.getImage());
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame1.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                new MainGui(medicines).setVisible(true);
+            }
+        });
         frame1.setVisible(true);
     }
 }
@@ -626,7 +643,6 @@ class UpdateMed extends MainGui
         // Add label and button to panel
         panel.add(button6, constr);
 
-
         // Add panel to frame
         frame1.add(panel);
         frame1.pack();
@@ -634,7 +650,13 @@ class UpdateMed extends MainGui
         frame1.setJMenuBar(mb);
         frame1.setIconImage(img.getImage());
         frame1.setLocationRelativeTo(null);
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame1.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                new MainGui(medicines).setVisible(true);
+            }
+        });
         frame1.setVisible(true);
     }
 }
