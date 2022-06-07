@@ -50,7 +50,7 @@ public class Xml extends MainGui
                 DocumentBuilderFactory documentBuilderFactory
                         = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-                Document document = documentBuilder.parse("Settings.xml");
+                Document document = documentBuilder.parse("src/main/resources/Settings.xml");
 
                 Element rootElement = document.getDocumentElement();
 
